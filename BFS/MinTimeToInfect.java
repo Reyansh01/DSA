@@ -71,7 +71,7 @@ public class MinTimeToInfect {
             int row = queue.peek().row;
             int col = queue.peek().column;
             int time = queue.peek().time;
-            minTime = Math.max(minTime, time);
+            minTime = Math.max(minTime, time); // because after every iteration the time will increase. Hence, max is required here.
             queue.poll();
             for(int i = 0; i < 4; i++) { // because we have 4 directions to iterate over.
                 int nextRow = row + rowDir[i];
