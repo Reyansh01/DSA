@@ -1,17 +1,17 @@
 package Misc;
-
+    
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-class FriendComparable implements Comparable<FriendComparable> {
-
+class Friend {
     private String name;
     private String grade;
 
-    public FriendComparable(String name, String grade) {
+    public Friend(String name, String grade) {
         this.name = name;
         this.grade = grade;
     }
@@ -20,20 +20,18 @@ class FriendComparable implements Comparable<FriendComparable> {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
-        this.grade = grade;
+    @Override
+    public String toString() {
+        return "Friend{name='" + name + "', grade='" + grade + "'}";
     }
+}
 
-    private static Map<String, Integer> gradeValueMap = new HashMap<>();
-
+class ComparatorExample implements Comparator<Friend> {
+    private static final Map<String, Integer> gradeValueMap = new HashMap<>();
     static {
         gradeValueMap.put("A+", 1);
         gradeValueMap.put("A", 2);
@@ -51,34 +49,33 @@ class FriendComparable implements Comparable<FriendComparable> {
     }
 
     @Override
-    public int compareTo(FriendComparable otherFriend) {
-        return Integer.compare(gradeValueMap.get(this.getGrade()), gradeValueMap.get(otherFriend.getGrade()));
+    public int compare(Friend f1, Friend f2) {
+        return Integer.compare(gradeValueMap.get(f1.getGrade()), gradeValueMap.get(f2.getGrade()));
     }
 
-    @Override
-    public String toString() {
-        return "Friend{name='" + name + "', grade='" + grade + "'}";
-    }
-
-}
-
-public class ComparableExample {
 
     public static void main(String[] args) {
-        List<FriendComparable> friends = new ArrayList<>();
-        friends.add(new FriendComparable("Alice", "B"));
-        friends.add(new FriendComparable("Bob", "A"));
-        friends.add(new FriendComparable("Charlie", "A+"));
+        List<Friend> friends = new ArrayList<>();
+        friends.add(new Friend("Alice", "B"));
+        friends.add(new Friend("Bob", "A"));
+        friends.add(new Friend("Charlie", "A+"));
 
         System.out.println("Before sorting:");
-        for (FriendComparable friend : friends) {
+        for (Friend friend : friends) {
             System.out.println(friend);
         }
 
-        Collections.sort(friends);
+        // Collections.sort(friends, new Comparator<>() {
+        //     @Override
+        //     public int compare(Friend f1, Friend f2) {
+        //         return Integer.compare(gradeValueMap.get(f1.getGrade()), gradeValueMap.get(f2.getGrade()));
+        //     }
+        // });
+
+        Collections.sort(friends, new ComparatorExample());
 
         System.out.println("\nAfter sorting:");
-        for (FriendComparable friend : friends) {
+        for (Friend friend : friends) {
             System.out.println(friend);
         }
     }

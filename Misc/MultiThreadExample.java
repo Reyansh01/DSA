@@ -48,6 +48,8 @@ public class MultiThreadExample {
         // long startTime = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(40);
 
+        // submit returns a future object. Hence, it uses callable interface while
+        // execute does not return an object. Hence, it uses runnable interface tasks..
         for (int i = 0; i <= 20; i++) {
             executorService.submit(() -> {
                 bank.depositAmount(100);
@@ -124,6 +126,10 @@ public class MultiThreadExample {
         // }
 
         // System.out.println("Final balance in the bank: " + bank.getBalance());
+    }
+
+    public static void addField(List a) {
+        a.add("Mrityunjay");
     }
 
 }
