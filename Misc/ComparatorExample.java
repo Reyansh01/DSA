@@ -65,14 +65,26 @@ class ComparatorExample implements Comparator<Friend> {
             System.out.println(friend);
         }
 
-        // Collections.sort(friends, new Comparator<>() {
-        //     @Override
-        //     public int compare(Friend f1, Friend f2) {
-        //         return Integer.compare(gradeValueMap.get(f1.getGrade()), gradeValueMap.get(f2.getGrade()));
-        //     }
-        // });
-
         Collections.sort(friends, new ComparatorExample());
+
+        // using lambda expressions..
+        // Collections.sort(friends, (o1, o2) -> {
+        //     final Map<String, Integer> gradeValueMap = new HashMap<>();
+        //     gradeValueMap.put("A+", 1);
+        //     gradeValueMap.put("A", 2);
+        //     gradeValueMap.put("A-", 3);
+        //     gradeValueMap.put("B+", 4);
+        //     gradeValueMap.put("B", 5);
+        //     gradeValueMap.put("B-", 6);
+        //     gradeValueMap.put("C+", 7);
+        //     gradeValueMap.put("C", 8);
+        //     gradeValueMap.put("C-", 9);
+        //     gradeValueMap.put("D+", 10);
+        //     gradeValueMap.put("D", 11);
+        //     gradeValueMap.put("D-", 12);
+        //     gradeValueMap.put("F", 13);
+        //     return Integer.compare(gradeValueMap.get(o1.getGrade()), gradeValueMap.get(o2.getGrade()));
+        // });
 
         System.out.println("\nAfter sorting:");
         for (Friend friend : friends) {
