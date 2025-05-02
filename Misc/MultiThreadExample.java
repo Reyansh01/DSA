@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ThreadFactory;
 
 class Bank {
     
@@ -48,10 +49,11 @@ public class MultiThreadExample {
         // long startTime = System.currentTimeMillis();
         ExecutorService executorService = Executors.newFixedThreadPool(40);
 
+        String anss = "";
         // submit returns a future object. Hence, it uses callable interface while
         // execute does not return an object. Hence, it uses runnable interface tasks..
         for (int i = 0; i <= 20; i++) {
-            executorService.submit(() -> {
+            Future<String> ans = executorService.submit(() -> {
                 bank.depositAmount(100);
                 try {
                     // System.out.println("Going to Sleep...");
@@ -60,8 +62,16 @@ public class MultiThreadExample {
                 } catch (Exception ex) {
                     Thread.currentThread().interrupt();
                 }
-            }, executorService);
+            }, "a");
+            try {
+                anss = ans.get();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
         }
+
+
+        System.out.println(anss);
 
         for (int i = 0; i <= 20; i++) {
             executorService.submit(() -> {
