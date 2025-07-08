@@ -4,6 +4,9 @@ public class MergeSort {
     
     public static void main(String[] args) {
         int[] a = {9, 4, 7, 6, 3, 1, 5};
+
+        System.out.println("cores::" + Runtime.getRuntime().availableProcessors());
+
         a = mergeSortElements(a, 0, a.length - 1);
         for(int aEle: a) {
             System.out.print(aEle + " ");
